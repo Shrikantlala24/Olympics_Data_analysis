@@ -48,14 +48,3 @@ if user == 'Medal-wise Analysis':
 
 
 
-
-from streamlit_card import card
-import streamlit as st
-
-# Basic card with image and text
-card(
-    title="Hello World!",
-    text="Card Description",
-    image="https://placekitten.com",
-)
-
