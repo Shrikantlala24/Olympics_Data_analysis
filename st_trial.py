@@ -18,4 +18,8 @@ st.code('for i in range(8): foo()')
 
 # * optional kwarg unsafe_allow_html = True
 
-    
+import time
+
+with st.spinner(text='Wait for 3sec', show_time=True):
+    time.sleep(3)
+    st.success('Done')
