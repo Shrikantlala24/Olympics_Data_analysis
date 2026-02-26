@@ -39,3 +39,18 @@ with tab1:
 # Alternatively, using st.write
 url = "https://www.example.org"
 st.write("Visit our [website](%s)" % url)
+
+
+
+# ----
+
+from streamlit_card import card
+import streamlit as st
+
+# Basic card with image and text
+card(
+    title="Hello World!",
+    text="Card Description",
+    image="https://placekitten.com",
+)
+
