@@ -1,3 +1,7 @@
+''' the role of this file is simple, take the dataset, pre-process it and return it.
+the function don't take any argument, it will read the stored one.
+'''
+
 
 from matplotlib.pyplot import summer
 import pandas as pd
@@ -24,4 +28,3 @@ def pre_process():
 
 
     return df
-    

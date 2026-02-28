@@ -8,3 +8,7 @@ def medal(df):
 
     medal_tally['Total'] = medal_tally['Gold'] + medal_tally['Silver'] + medal_tally['Bronze']
     return medal_tally
+
+def return_list(medal_tally):
+    country = medal_tally.index.tolist()
+    return country
