@@ -9,6 +9,12 @@ def medal(df):
     medal_tally['Total'] = medal_tally['Gold'] + medal_tally['Silver'] + medal_tally['Bronze']
     return medal_tally
 
-def return_list(medal_tally):
-    country = medal_tally.index.tolist()
+def return_country_list(medal_tally):
+    country =  ['Overall'] + medal_tally.index.sort_values().tolist()
+    
+
     return country
+
+def return_year_list(df):
+    year = ['Overall'] + sorted(df['Year'].unique().tolist())
+    return year

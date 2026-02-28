@@ -46,9 +46,10 @@ if user == 'Medal-wise Analysis':
     st.dataframe(medal_tally)
 
     # now based on dropbox selection
-    st.sidebar.subheader("Select Country for Medal Trend")
-    selected_country = st.sidebar.selectbox("Country", helper.return_list(medal_tally), key='country_select')
+    st.sidebar.subheader("Select Country and Year for Trend")
 
+    selected_country = st.sidebar.selectbox("Country", helper.return_country_list(medal_tally), key='country_select', )
+    selected_year = st.sidebar.selectbox("Year",helper.return_year_list(df), key='year_select')
 
 
 
