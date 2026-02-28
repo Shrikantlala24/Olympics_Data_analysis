@@ -12,14 +12,14 @@ def pre_process():
     global athletes, regions
 
 # sirf summer nikal
-    summer = athletes[athletes['Season'] == "Summer"].copy()
+    df = athletes[athletes['Season'] == "Summer"].copy()
 
 # cleaning kar, but missing data ka kuch nhi abhi
-    summer.drop_duplicates(inplace=True)
+    df.drop_duplicates(inplace=True)
 
 # medal ki encoding kar + concat kar summer mein
-    encod = pd.get_dummies(summer.Medal).astype(int)
-    summer = pd.concat([summer, encod], axis=1)
+    encod = pd.get_dummies(df.Medal).astype(int)
+    summer = pd.concat([df, encod], axis=1)
 
 
 
