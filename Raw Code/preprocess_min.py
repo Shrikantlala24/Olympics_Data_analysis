@@ -19,8 +19,9 @@ def pre_process():
 
 # medal ki encoding kar + concat kar summer mein
     encod = pd.get_dummies(df.Medal).astype(int)
-    summer = pd.concat([df, encod], axis=1)
+    df = pd.concat([df, encod], axis=1)
 
 
 
-    return summer
+    return df
+    
