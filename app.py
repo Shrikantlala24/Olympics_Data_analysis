@@ -6,6 +6,14 @@ import streamlit as st
 import pre_process, helper
 df = pre_process.pre()
 
+# setting page configuration
+st.set_page_config(
+    page_title="🏅 Olympics Data Analysis",
+    page_icon="🏅",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 
 # Sidebar Interface
 # header
@@ -19,6 +27,7 @@ user = st.sidebar.radio(
     '**Select the analysis**',
     (
         'Medal-wise Analysis',
+        'Overall Analysis',
         'Country-wise Analysis',
         'Sport-wise Analysis',
         'Athlete-wise Analysis'
@@ -36,25 +45,38 @@ if main_frame:
     st.write("This dataset contains information about athletes, their participation in the Summer Olympics, and the medals they won.")
     st.dataframe(df)
 
-
+# todo medal wise ka code
 if user == 'Medal-wise Analysis':
-    st.header("Medal-wise Analysis")
-    st.write("This section will provide insights into the distribution of medals across different countries and sports.")
+    # pura interface medal wise analysis ke liye
 
+    st.header("Medal-wise Analysis")
+    st.write("This section will provide insights into the distribution of medals across different countries and their performance over time.")
+    st.success('🧩 This analysis allows you to filter the medal tally by country and year. Use the sidebar controls to select your desired country and year to see the corresponding medal tally.')
+
+    # medal tally wali table fetch karle and code ke context mein le ayyen
+    # because pura code is medal tally
     medal_tally = helper.medal(df)
-    st.subheader("Medal Tally by Country")
-    st.dataframe(medal_tally)
 
     # now based on dropbox selection
     st.sidebar.subheader("Select Country and Year for Trend")
 
-    country = st.sidebar.selectbox("Country", helper.return_country_list(medal_tally), key='country_select', )
-    year = st.sidebar.selectbox("Year",helper.return_year_list(df), key='year_select')
+
+    country = st.sidebar.selectbox("Country", helper.return_country_list(), key='country_select', )
+    year = st.sidebar.selectbox("Year",helper.return_year_list(), key='year_select')
+
 
     # now let's call the functions we made for selection logic in helper.py
     medal_tally_filtered = helper.fetch_Medal_tally(country, year)
-    st.subheader(f"Medal Tally for {country} in {year}")
-    st.dataframe(medal_tally_filtered)
+    st.subheader(f"Medal Tally for {country} in {year} years")
+
+    # table view ka logic
+    st.sidebar.info('You can view either Dataframe or Table format.')
+    view = st.sidebar.checkbox('View full Table')
+
+    if view:
+        st.table(medal_tally_filtered)
+    else :
+        st.dataframe(medal_tally_filtered)
 
 
-
+# todo country wise ka code
