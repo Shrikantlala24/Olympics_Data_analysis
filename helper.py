@@ -51,4 +51,5 @@ def fetch_Medal_tally(country,year):
 def Nations_per_year(df):
     nations_per_year = df.drop_duplicates(['Year', 'region'])['Year'].value_counts().sort_index().reset_index()
     nations_per_year.rename(columns={ 'nations': 'Year', 'count': 'nations' }, inplace=True)
+    
     return nations_per_year
