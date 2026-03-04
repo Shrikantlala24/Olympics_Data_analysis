@@ -82,7 +82,7 @@ if user == 'Medal-wise Analysis':
 
 # todo Overall analysis ka code
 if user == 'Overall Analysis':
-    st.header("Overall Analysis")
+    st.title("Overall Analysis")
     st.success("here we'll show the key statistics of the data, as a overlook on the information")
     
 
@@ -94,7 +94,7 @@ if user == 'Overall Analysis':
     nations = df['region'].unique()
 
     # here we'll show the key statistics of the data, as information overlook
-    st.subheader("Key Statistics")
+    st.header("Key Statistics")
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Editions", len(editions))
@@ -112,11 +112,18 @@ if user == 'Overall Analysis':
     with col6:
         st.metric("Participating Nations", len(nations))
 
+    st.divider()
 
+    st.header("Trends Over the Years")
 
+    st.subheader("Participating Nations Over the Years")
     nations_per_year = helper.Nations_per_year(df)
-    fig = px.line(nations_per_year, x='Year', y='nations', title='Number of Participating Nations Over the Years')
-    # fig.show()
-    # st.line_chart(nations_per_year, x='Year', y='nations',)
+    fig = px.line(nations_per_year, x='Year', y='nations')
     st.plotly_chart(fig)
+
+    st.subheader("Participating Athletes Over the Years")
+    athletes_per_year = helper.Athletes_per_year(df)
+    fig2 = px.line(athletes_per_year, x='Year', y='athletes', title='Number of Athletes Over the Years')
+    st.plotly_chart(fig2)
+
 
