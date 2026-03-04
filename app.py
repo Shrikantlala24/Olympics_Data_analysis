@@ -83,7 +83,7 @@ if user == 'Medal-wise Analysis':
 # todo Overall analysis ka code
 if user == 'Overall Analysis':
     st.header("Overall Analysis")
-    st.success("This section will provide insights into the overall trends and patterns in the Summer Olympics dataset, including the number of editions, cities, sports/events, athletes, and participating nations.")
+    st.success("here we'll show the key statistics of the data, as a overlook on the information")
     
 
     editions = df['Year'].unique()
@@ -93,6 +93,7 @@ if user == 'Overall Analysis':
     athletes = df['Name'].unique()
     nations = df['region'].unique()
 
+    # here we'll show the key statistics of the data, as information overlook
     st.subheader("Key Statistics")
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -111,9 +112,11 @@ if user == 'Overall Analysis':
     with col6:
         st.metric("Participating Nations", len(nations))
 
+
+
     nations_per_year = helper.Nations_per_year(df)
     fig = px.line(nations_per_year, x='Year', y='nations', title='Number of Participating Nations Over the Years')
     # fig.show()
     # st.line_chart(nations_per_year, x='Year', y='nations',)
     st.plotly_chart(fig)
-    
+
