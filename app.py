@@ -91,3 +91,21 @@ if user == 'Overall Analysis':
     events = df['Event'].unique()
     athletes = df['Name'].unique()
     nations = df['region'].unique()
+
+    st.subheader("Key Statistics")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Editions", len(editions))
+    with col2:
+        st.metric("Host Cities", len(Cities))
+    with col3:
+        st.metric("Sports", len(sports))
+    
+
+    col4, col5, col6 = st.columns(3)
+    with col4:
+        st.metric("Events", len(events))
+    with col5:
+        st.metric("Athletes", len(athletes))
+    with col6:
+        st.metric("Participating Nations", len(nations))
