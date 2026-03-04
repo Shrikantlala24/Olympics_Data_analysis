@@ -58,3 +58,7 @@ def Athletes_per_year(df):
     athletes_per_year.rename(columns={ 'athletes': 'Year', 'count': 'athletes' }, inplace=True)
     return athletes_per_year
 
+def Events_per_year(df):
+    events_per_year = df.drop_duplicates(['Year', 'Event'])['Year'].value_counts().sort_index().reset_index()
+    events_per_year.rename(columns={ 'events': 'Year', 'count': 'events' }, inplace=True)
+    return events_per_year

@@ -27,7 +27,7 @@ main_frame = st.sidebar.checkbox('**Show the dataframe**')
 user = st.sidebar.radio(
     '**Select the analysis**',
     (
-        'Medal-wise Analysis',
+        'Medal Tally',
         'Overall Analysis',
         'Country-wise Analysis',
         'Sport-wise Analysis',
@@ -40,14 +40,14 @@ user = st.sidebar.radio(
 # ----
 # Functions to display the content based on user selection
 
-# 
+# todo if og dataset show karna hai tohhh..
 if main_frame:
     st.header("Summer Olympics Dataset")
     st.write("This dataset contains information about athletes, their participation in the Summer Olympics, and the medals they won.")
     st.dataframe(df)
 
-# todo medal wise ka code
-if user == 'Medal-wise Analysis':
+# todo medal tally ka code
+if user == 'Medal Tally':
     # pura interface medal wise analysis ke liye
 
     st.header("Medal-wise Analysis")
@@ -114,12 +114,21 @@ if user == 'Overall Analysis':
 
     st.divider()
 
+    #?  HERE in trends over the year section, WE HAVE CODE IN THIS WAY
+    # 1. SUBHEADER
+    # 2. fucntion call to take the desired df
+    # 3. plotly code to show the line graph
+    # 4. st.plotly_chart to show the graph
+
     st.header("Trends Over the Years")
+
+
 
     st.subheader("Participating Nations Over the Years")
     nations_per_year = helper.Nations_per_year(df)
     fig = px.line(nations_per_year, x='Year', y='nations')
     st.plotly_chart(fig)
+
 
     st.subheader("Participating Athletes Over the Years")
     athletes_per_year = helper.Athletes_per_year(df)
@@ -127,3 +136,9 @@ if user == 'Overall Analysis':
     st.plotly_chart(fig2)
 
 
+    st.subheader("Events Over the Years")
+    events_per_year = helper.Events_per_year(df)
+    fig3 = px.line(events_per_year, x='Year', y='events', title='Number of Events Over the Years')
+    st.plotly_chart(fig3)
+
+    
