@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import plotly.express as px
 
 import pre_process, helper
 df = pre_process.pre()
@@ -109,3 +110,8 @@ if user == 'Overall Analysis':
         st.metric("Athletes", len(athletes))
     with col6:
         st.metric("Participating Nations", len(nations))
+
+    nations_per_year = helper.Nations_per_year(df)
+    # fig = px.line(nations_per_year, x='Year', y='nations', title='Number of Participating Nations Over the Years')
+    # fig.show()
+    st.line_chart(nations_per_year, x='Year', y='nations',)
