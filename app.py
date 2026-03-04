@@ -112,6 +112,8 @@ if user == 'Overall Analysis':
         st.metric("Participating Nations", len(nations))
 
     nations_per_year = helper.Nations_per_year(df)
-    # fig = px.line(nations_per_year, x='Year', y='nations', title='Number of Participating Nations Over the Years')
+    fig = px.line(nations_per_year, x='Year', y='nations', title='Number of Participating Nations Over the Years')
     # fig.show()
-    st.line_chart(nations_per_year, x='Year', y='nations',)
+    # st.line_chart(nations_per_year, x='Year', y='nations',)
+    st.plotly_chart(fig)
+    
