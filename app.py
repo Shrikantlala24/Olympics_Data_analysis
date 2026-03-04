@@ -79,4 +79,15 @@ if user == 'Medal-wise Analysis':
         st.dataframe(medal_tally_filtered)
 
 
-# todo country wise ka code
+# todo Overall analysis ka code
+if user == 'Overall Analysis':
+    st.header("Overall Analysis")
+    st.success("This section will provide insights into the overall trends and patterns in the Summer Olympics dataset, including the number of editions, cities, sports/events, athletes, and participating nations.")
+    
+
+    editions = df['Year'].unique()
+    Cities = df['City'].unique()
+    sports = df['Sport'].unique()
+    events = df['Event'].unique()
+    athletes = df['Name'].unique()
+    nations = df['region'].unique()
