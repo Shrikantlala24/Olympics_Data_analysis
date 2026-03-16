@@ -138,7 +138,7 @@ if user == 'Overall Analysis':
 
     st.subheader("Events Over the Years")
     events_per_year = helper.Events_per_year(df)
-    fig3 = px.line(events_per_year, x='Year', y='events', title='Number of Events Over the Years')
+    fig3 = px.line(events_per_year, x='Year', y='events')
     st.plotly_chart(fig3)
 
     
