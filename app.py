@@ -132,7 +132,7 @@ if user == 'Overall Analysis':
 
     st.subheader("Participating Athletes Over the Years")
     athletes_per_year = helper.Athletes_per_year(df)
-    fig2 = px.line(athletes_per_year, x='Year', y='athletes', title='Number of Athletes Over the Years')
+    fig2 = px.line(athletes_per_year, x='Year', y='athletes')
     st.plotly_chart(fig2)
 
 
