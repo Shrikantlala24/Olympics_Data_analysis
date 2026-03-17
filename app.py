@@ -141,4 +141,4 @@ if user == 'Overall Analysis':
     fig3 = px.line(events_per_year, x='Year', y='events')
     st.plotly_chart(fig3)
 
-    
+    # let's try heatmaps
