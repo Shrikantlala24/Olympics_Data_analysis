@@ -142,3 +142,12 @@ if user == 'Overall Analysis':
     st.plotly_chart(fig3)
 
     # let's try heatmaps
+    st.header('No. of Events in Each Sport Over the Years')
+    
+    x = df.drop_duplicates(['Event','Sport','Year'])
+    x_pv = x.pivot_table(index = 'Sport', columns= 'Year', values='Event', aggfunc='count').fillna(0).astype(int)
+    
+    plt.figure(figsize=(20, 20))
+    sns.heatmap(x_pv, annot=True, fmt="d")
+
+    st.pyplot(plt)
