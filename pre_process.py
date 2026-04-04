@@ -1,13 +1,16 @@
 """Olympics data preprocessing for Summer Olympics analysis."""
 
+from pathlib import Path
+
 import pandas as pd
 
 
 def pre():
     """Load and preprocess Olympics data."""
     # Load datasets
-    athletes = pd.read_csv("Data/athlete_events.csv")
-    regions = pd.read_csv("Data/noc_regions.csv")
+    base_dir = Path(__file__).resolve().parent
+    athletes = pd.read_csv(base_dir / "Data" / "athlete_events.csv")
+    regions = pd.read_csv(base_dir / "Data" / "noc_regions.csv")
     
     # Filter Summer Olympics and remove duplicates
     summer = athletes[athletes['Season'] == "Summer"].drop_duplicates()

@@ -5,7 +5,14 @@ import streamlit as st
 import plotly.express as px
 
 import pre_process, helper
-df = pre_process.pre()
+
+
+@st.cache_data(show_spinner=False)
+def load_data():
+    return pre_process.pre()
+
+
+df = load_data()
 
 # setting page configuration
 st.set_page_config(
