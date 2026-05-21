@@ -1,6 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import streamlit as st
 import plotly.express as px
 
@@ -12,7 +10,8 @@ def load_data():
     return pre_process.pre()
 
 @st.cache_data(show_spinner=False)
-def load_medal_df(data):
+def load_medal_df():
+    data = load_data()
     return helper.get_medal_df(data)
 
 # setting page configuration
@@ -24,8 +23,6 @@ st.set_page_config(
 )
 
 df = load_data()
-medal_df = load_medal_df(df)
-helper.medal(df)
 
 
 # Sidebar Interface
@@ -66,6 +63,9 @@ if user == 'Medal Tally':
     st.success(
         '🧩 This analysis allows you to filter the medal tally by country and year. Use the sidebar controls to select your desired country and year to see the corresponding medal tally.'
     )
+
+    medal_df = load_medal_df()
+    helper.medal(df, medal_df=medal_df)
 
     st.sidebar.subheader("Select Country and Year for Trend")
     countries = helper.get_country_list(df, include_overall=True)
@@ -142,6 +142,8 @@ if user == 'Medal Tally':
 if user == 'Overall Analysis':
     st.title("Overall Analysis")
     st.success("Here we'll show the key statistics of the data, as an overlook on the information")
+
+    medal_df = load_medal_df()
 
     editions = df['Year'].nunique()
     cities = df['City'].nunique()
@@ -249,15 +251,31 @@ if user == 'Overall Analysis':
         st.plotly_chart(fig8, use_container_width=True)
 
     st.header('No. of Events in Each Sport Over the Years')
+    heatmap_top_n = st.sidebar.slider(
+        "Heatmap sports",
+        10,
+        40,
+        25,
+        key='overall_heatmap_n'
+    )
     heatmap_data = helper.sport_event_heatmap(df)
-    fig9, ax = plt.subplots(figsize=(16, 10))
-    sns.heatmap(heatmap_data, cmap='YlGnBu', ax=ax)
-    st.pyplot(fig9)
+    if not heatmap_data.empty:
+        heatmap_sorted = heatmap_data.sum(axis=1).sort_values(ascending=False)
+        heatmap_data = heatmap_data.loc[heatmap_sorted.head(heatmap_top_n).index]
+        fig9 = px.imshow(
+            heatmap_data,
+            aspect='auto',
+            color_continuous_scale='YlGnBu',
+            labels={'x': 'Year', 'y': 'Sport', 'color': 'Events'}
+        )
+        st.plotly_chart(fig9, use_container_width=True)
 
 
 if user == 'Country-wise Analysis':
     st.header("Country-wise Analysis")
     st.write("Deep dive into medals, participation, and strengths for a selected country.")
+
+    medal_df = load_medal_df()
 
     countries = helper.get_country_list(df)
     default_index = countries.index('India') if 'India' in countries else 0
@@ -349,16 +367,31 @@ if user == 'Country-wise Analysis':
         st.plotly_chart(fig5, use_container_width=True)
 
     st.subheader("Medals by Sport Over the Years")
+    heatmap_top_n = st.sidebar.slider(
+        "Heatmap sports",
+        5,
+        30,
+        15,
+        key='country_heatmap_n'
+    )
     heatmap = helper.country_sport_medal_heatmap(df, country, medal_df=medal_df)
     if not heatmap.empty:
-        fig6, ax = plt.subplots(figsize=(16, 10))
-        sns.heatmap(heatmap, cmap='YlGnBu', ax=ax)
-        st.pyplot(fig6)
+        heatmap_sorted = heatmap.sum(axis=1).sort_values(ascending=False)
+        heatmap = heatmap.loc[heatmap_sorted.head(heatmap_top_n).index]
+        fig6 = px.imshow(
+            heatmap,
+            aspect='auto',
+            color_continuous_scale='YlGnBu',
+            labels={'x': 'Year', 'y': 'Sport', 'color': 'Medals'}
+        )
+        st.plotly_chart(fig6, use_container_width=True)
 
 
 if user == 'Sport-wise Analysis':
     st.header("Sport-wise Analysis")
     st.write("Explore medal trends, top countries, and athlete highlights for a selected sport.")
+
+    medal_df = load_medal_df()
 
     sport = st.sidebar.selectbox(
         "Sport",

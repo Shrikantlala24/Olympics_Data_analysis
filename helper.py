@@ -1,12 +1,15 @@
 medal_tally = None
 df = None
 # Medal-wise analysis functions
-def medal(df_passed):
+def medal(df_passed, medal_df=None):
     global df, medal_tally, df2
     df = df_passed
 
     # summer.Sport.value_counts()
-    df2 = df.drop_duplicates(subset=['Team', 'NOC','Games','Year','Season','City','Sport', 'Event', 'Medal'])
+    if medal_df is None:
+        df2 = df.drop_duplicates(subset=['Team', 'NOC','Games','Year','Season','City','Sport', 'Event', 'Medal'])
+    else:
+        df2 = medal_df
     # Team	NOC	Games	Year	Season	City	Sport	Event
     medal_tally = df2.groupby('region')[['Gold', 'Silver', 'Bronze']].sum().sort_values('Gold', ascending=False)
 
